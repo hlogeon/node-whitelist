@@ -14,15 +14,6 @@ if (config.app.accessLog === 'true') {
   app.use(morgan('combined'));
 }
 
-if (process.env.ENVIRONMENT === 'production') {
-  app.use((req: any, res: Response, next: NextFunction) => {
-    if (!req.client.authorized && req.path !== '/dashboard/public') {
-      return res.status(401).send({error: 'Invalid client certificate'});
-    }
-    next();
-  });
-}
-
 app.disable('x-powered-by');
 
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -59,6 +50,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 let server = new InversifyExpressServer(container, null, null, app);
+
 server.setErrorConfig((app) => {
   // 404 handler
   app.use((req: Request, res: Response, next: NextFunction) => {

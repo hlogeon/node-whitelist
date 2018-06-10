@@ -25,7 +25,12 @@ const {
   AUTH_BASE_URL,
   MONGO_URL,
   ACCESS_LOG,
-  SERVICE_NAME
+  SERVICE_NAME,
+  RPC_ADDRESS,
+  RPC_TYPE,
+  WHITELIST_SC_ADDRESS,
+  WL_OWNER_PK,
+  PASSWORD
 } = process.env;
 
 export default {
@@ -38,7 +43,8 @@ export default {
     httpsServer: HTTPS_SERVER || 'disabled',
     forceHttps: FORCE_HTTPS || 'disabled',
     apiUrl: API_URL,
-    accessLog: ACCESS_LOG || true
+    accessLog: ACCESS_LOG || true,
+    password: PASSWORD || ""
   },
   logging: {
     level: LOGGING_LEVEL || 'warn',
@@ -74,5 +80,17 @@ export default {
     subscribers: [
       ORM_SUBSCRIBER_DIR
     ]
+  },
+  rpc: {
+    address: RPC_ADDRESS || '',
+    type: RPC_TYPE || '',
+    reconnectTimeout: 600
+  },
+  contracts: {
+    whiteList: {
+      address: WHITELIST_SC_ADDRESS,
+      abi: JSON.parse('[{"constant":false,"inputs":[{"name":"investor","type":"address"}],"name":"addInvestorToWhiteList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"referralList","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"investorWhiteList","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"investor","type":"address"}],"name":"getReferralOf","outputs":[{"name":"result","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"investor","type":"address"}],"name":"removeInvestorFromWhiteList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"investor","type":"address"},{"name":"referral","type":"address"}],"name":"addReferralOf","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"investor","type":"address"}],"name":"isAllowed","outputs":[{"name":"result","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]'),
+      ownerPk: WL_OWNER_PK
+    }
   }
 };

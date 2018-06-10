@@ -95,3 +95,11 @@ declare interface ValidationResult extends Result {
     payload?: any;
   };
 }
+
+declare interface TransactionInput {
+  from?: string;
+  to: string;
+  amount: string;
+  gas: number;
+  gasPrice: string;
+}
