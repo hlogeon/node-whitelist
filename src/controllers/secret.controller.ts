@@ -70,7 +70,7 @@ export class SecretController {
     if (!req.query.address || !this.web3Client.isHex(req.query.address)) {
       throw new Error('Address number must be valid hex string');
     }
-    const response = await this.web3Client.getReferralOf(req.query.aaddress);
+    const response = await this.web3Client.getReferralOf(req.query.address);
     res.json({
       referral: response
     });
